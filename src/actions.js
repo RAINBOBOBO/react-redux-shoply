@@ -1,13 +1,19 @@
 import { ADD_TO_CART, REMOVE_FROM_CART } from './actionTypes';
 
-export function addToCart() {
+/**
+ * 
+ * - payload: {id, itemData}
+ */
+export function addToCart(id, itemData) {
   return {
-    type: ADD_TO_CART
+    type: ADD_TO_CART,
+    payload: {id, itemData}
   };
 }
 
-export function removeFromCart() {
+export function removeFromCart(id) {
   return {
-    type: REMOVE_FROM_CART
+    type: REMOVE_FROM_CART,
+    payload: {id}
   };
 }
