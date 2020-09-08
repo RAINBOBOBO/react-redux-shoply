@@ -3,7 +3,8 @@ import { ADD_TO_CART, REMOVE_FROM_CART } from './actionTypes';
 
 const INITIAL_STATE = {
   inventory: inventory.products,
-  cart: {}
+  cart: {},
+  cartTotal: 0
 }
 /**
  * State: 
@@ -22,27 +23,36 @@ function rootReducer(state = INITIAL_STATE, action) {
         console.log('newItem:', newItem);
         return ({
           ...state,
-          cart: { ...state.cart, [itemId]: newItem }
+          cart: { ...state.cart, [itemId]: newItem },
+          cartTotal: state.cartTotal + itemData.price
         });
       } else {
         return ({
           ...state,
-          cart: { ...state.cart, [itemId]: { ...itemData, count: state.cart[itemId].count + 1 } }
+          cart: { ...state.cart, [itemId]: { ...itemData, count: state.cart[itemId].count + 1 } },
+          cartTotal: state.cartTotal + itemData.price
         });
       }
     // TODO: handle case in which we remove items with count > 1
     case REMOVE_FROM_CART:
       if (itemId in state.cart) {
-        let stateCopy = {...state};
-
-        if (stateCopy.cart[itemId].count === 1) {
-          const cartCopy = { ...stateCopy.cart }
-          delete cartCopy.itemId;
-          return { stateCopy, cart: cartCopy };
+        if (state.cart[itemId].count === 1) {
+          const cartCopy = { ...state.cart }
+          // console.log("this is cartCopy before delete", cartCopy)
+          delete cartCopy[itemId];
+          // console.log("this is cartCopy after delete", cartCopy)
+          // console.log("returning", { ...state, cart: cartCopy })
+          return { ...state, cart: cartCopy };
         } else {
+          console.log("count > 1, returning", {
+            ...state,
+            cart: {...state.cart, [itemId]: { ...state.cart[itemId], count: state.cart[itemId].count - 1 }},
+            cartTotal: state.cartTotal - itemData.price
+          })
           return ({
             ...state,
-            cart: {...state.cart, [itemId]: { ...itemData, count: state.cart[itemId].count - 1 }}
+            cart: {...state.cart, [itemId]: { ...state.cart[itemId], count: state.cart[itemId].count - 1 }},
+            cartTotal: state.cartTotal - itemData.price
           });
         }
       } else {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import './App.css';
 import NavBar from './NavBar';
 import { Route, Switch } from 'react-router-dom';
@@ -11,15 +12,18 @@ import ItemDetail from './ItemDetail';
  *  App -> {Cart, ItemList, ItemDetail}
  */
 function App() {
+  const inventory = useSelector(store => store.inventory);
+  const cart = useSelector(store => store.cart);
+  const cartTotal = useSelector(store => store.cartTotal);
   return (
-    <div>
-      <NavBar />
+    <div className="container">
+      <NavBar cartTotal={cartTotal} />
       <Switch>
         <Route exact path="/">
-          <ItemList />
+          <ItemList items={inventory} />
         </Route>
         <Route exact path="/cart">
-          <Cart />
+          <Cart items={cart} />
         </Route>
         <Route path="/products/:id" >
           <ItemDetail />

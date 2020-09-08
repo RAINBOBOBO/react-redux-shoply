@@ -1,10 +1,29 @@
 import React from 'react';
+import ItemList from './ItemList';
 
 /** Cart
  * 
- * App -> Cart -> {Item, DiscountForm}
+ *  Props:
+ *  - items: object to get passed to ItemList containing objects about an item like
+ *    {uuid: {name, description, price, image_url},... }
+ * 
+ * App -> Cart -> {ItemList, DiscountForm}
  */
-function Cart() {
+function Cart({ items }) {
+
+  function renderItems() {
+    if (Object.keys(items).length === 0) {
+      return <p>Your cart is empty!</p>
+    } else {
+      return <ItemList items={items} />
+    }
+  }
+
+  return (
+    <main>
+      {renderItems()}
+    </main>
+  )
 
 }
 

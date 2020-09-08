@@ -23,8 +23,15 @@ function Item({ itemData, id, addItemToCart, removeItemFromCart }) {
   }
 
   function handleRemoveFromCart(evt) {
-    removeItemFromCart(id, itemData)
+    removeItemFromCart(id, itemData);
   }
+
+  function showCount() {
+    if (itemData.count) {
+      return ` x ${itemData.count}`
+    }
+  }
+
   return(
     <div className='Item card'>
       <div className='card-img-top'>
@@ -32,10 +39,10 @@ function Item({ itemData, id, addItemToCart, removeItemFromCart }) {
       </div>
       <div className='card-body'>
         <div className='card-title'>
-          <h2>{itemData.name}</h2>
+          <h2>{itemData.name}{showCount()}</h2>
         </div>
         <div className='card-text'>
-          <p>{itemData.price}</p>
+          <p>$ {itemData.price}</p>
           <button onClick={handleAddToCart}>
             <i className="fas fa-cart-plus"></i>
           </button>
