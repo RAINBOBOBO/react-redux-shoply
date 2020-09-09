@@ -1,6 +1,4 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { addToCart, removeFromCart } from './actions';
 import Item from './Item';
 
 /** ItemList
@@ -11,16 +9,7 @@ import Item from './Item';
  * 
  * App -> ItemList -> Item
  */
-function ItemList({ items }) {
-  const dispatch = useDispatch();
-  
-  function addItemToCart(id, itemData) {
-    dispatch(addToCart(id, itemData))
-  }
-
-  function removeItemFromCart(id, itemData) {
-    dispatch(removeFromCart(id, itemData))
-  }
+function ItemList({ items, addItemToCart, removeItemFromCart }) {
 
   function renderItems() {
     let itemsToRender = [];

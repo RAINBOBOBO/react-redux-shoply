@@ -44,11 +44,6 @@ function rootReducer(state = INITIAL_STATE, action) {
           // console.log("returning", { ...state, cart: cartCopy })
           return { ...state, cart: cartCopy };
         } else {
-          console.log("count > 1, returning", {
-            ...state,
-            cart: {...state.cart, [itemId]: { ...state.cart[itemId], count: state.cart[itemId].count - 1 }},
-            cartTotal: state.cartTotal - itemData.price
-          })
           return ({
             ...state,
             cart: {...state.cart, [itemId]: { ...state.cart[itemId], count: state.cart[itemId].count - 1 }},

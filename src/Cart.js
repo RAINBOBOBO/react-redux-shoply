@@ -9,13 +9,13 @@ import ItemList from './ItemList';
  * 
  * App -> Cart -> {ItemList, DiscountForm}
  */
-function Cart({ items }) {
+function Cart({ items, addItemToCart, removeItemFromCart }) {
 
   function renderItems() {
     if (Object.keys(items).length === 0) {
       return <p>Your cart is empty!</p>
     } else {
-      return <ItemList items={items} />
+      return <ItemList items={items} addItemToCart={addItemToCart} removeItemFromCart={removeItemFromCart} />
     }
   }
 

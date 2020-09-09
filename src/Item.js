@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 /** Item
  * 
@@ -39,7 +40,7 @@ function Item({ itemData, id, addItemToCart, removeItemFromCart }) {
       </div>
       <div className='card-body'>
         <div className='card-title'>
-          <h2>{itemData.name}{showCount()}</h2>
+          <h2><Link to={`/products/${id}`}>{itemData.name}</Link>{showCount()}</h2>
         </div>
         <div className='card-text'>
           <p>$ {itemData.price}</p>
